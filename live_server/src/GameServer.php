@@ -85,9 +85,13 @@ class GameServer implements MessageComponentInterface {
 
     private function check_for_win($moves_played){
         $moves_lastplayer=$this->getmoves_from_last_player($moves_played);
-        foreach(WINS as $x)
-            if(strpos($moves_lastplayer,$x)!==false)
-                return true;
+        foreach(WINS as $wins){
+            $arr = str_split($wins);
+            foreach($arr as $letter){
+            if(strpos($moves_lastplayer,$letter)===false)break;
+            if($arr[array_key_last($arr)]===$letter)return true;
+            }
+        }
         return false;
     }
     
